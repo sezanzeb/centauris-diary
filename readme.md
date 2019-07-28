@@ -104,4 +104,4 @@ Your articles, blog entries, pages and html files contents that you are currentl
 `<?php render("title") ?>`
 
 The name of your current page, e.g. 'Home', 'Baz' or 'New'. On blog articles, this is already automatically
-inserted as heading.
+inserted as heading, but you would need this in your template for the title tag of the head
