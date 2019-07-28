@@ -5,7 +5,8 @@ Very minimal website software that works like a blog.
 - Can have blogs with articles, organized by categories, or static pages
 - That's it. Runs on your apache php server
 
-Example: hip70890b.de
+Example: www.hip70890b.de, or you can put this repository into your apache 2 server,
+for me this was at `/var/www/html/`, and see some minimal starting setup.
 
 ## 1. style, script, etc.
 
