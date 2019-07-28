@@ -32,27 +32,20 @@
 			if(is_file($category_config_path))
 			{
 				$category_config = json_decode(file_get_contents($category_config_path));
-				$entry["icon"] = $category_config->icon;
-				$entry["name"] = $category_config->title;
-				$entry["category"] = "/".$subdir."/";
-				$entry["class"] = $category_config->class;
-				$nav[] = $entry;
+				$category_config->url = "/".$subdir."/";
+				$nav[] = $category_config;
 			}
 
 			$page_config_path = $content_path.$subdir."/page.json";
 			if(is_file($page_config_path))
 			{
 				$page_config = json_decode(file_get_contents($page_config_path));
-				$entry["icon"] = $page_config->icon;
-				$entry["name"] = $page_config->title;
-				$entry["category"] = "/".$subdir."/";
-				$entry["class"] = $page_config->class;
-				$nav[] = $entry;
+				$page_config->url = "/".$subdir."/";
+				$nav[] = $page_config;
 			}
 		}
 
-		// activeindex is used to check which element of the main nav is currently active. a headline in the correct color
-		// will be rendered automatically
+		// activeindex is used to check which element of the main nav is currently active
 		$activeindex = -1;
 
 		$i = 0;
@@ -60,7 +53,7 @@
 		{
 			//check if this item should be active by checking if the <filename>.php appears in the url
 			$uppermost_parent = ("/".explode("/", $url)[1]."/");
-			if (strcmp($uppermost_parent, $item["category"]) === 0)
+			if (strcmp($uppermost_parent, $item->url) === 0)
 			{
 				$activeindex = $i;
 				break;
@@ -81,23 +74,23 @@
 			}
 
 			$li_class = "";
-			if($item["class"] != NULL)
+			if($item->class != NULL)
 			{
-				$li_class = "class=".$item["class"];
+				$li_class = "class=".$item->class;
 			}
 
-			$category = $item["category"];
-			$icon = $item["icon"];
-			$name = $item["name"];
+			$url = $item->url;
+			$icon = $ite->icon;
+			$title = $item->title;
 			echo <<< EOT
 			<li $li_class>
-				<a $a_class href="$category">
+				<a $a_class href="$url">
 					<i class="$icon"></i>
-					$name
+					$title
 				</a>
 			</li>
 EOT;
-		$i ++;
+			$i ++;
 		}
 		print('</ul>');
 	}

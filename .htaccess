@@ -1,0 +1,20 @@
+RewriteEngine on
+
+# if previous rules redirected to a php file, then stop the iterations
+# https://stackoverflow.com/a/6800150/4417769
+RewriteRule ^.*\.php$ - [L]
+
+# https://stackoverflow.com/questions/10489895/http-to-https-through-htaccess
+# RewriteCond %{HTTPS} !=on
+# RewriteRule ^.*$ https://%{SERVER_NAME}%{REQUEST_URI} [R,L]
+
+# html files and directories
+RewriteRule ^$ src/entrypoint.php [L]
+RewriteRule ^.*\/$ src/entrypoint.php [L]
+RewriteRule ^.*\.html$ src/entrypoint.php [L]
+
+# all other files should be tried to be served from static/ or from content/
+RewriteCond %{DOCUMENT_ROOT}/content/%{REQUEST_URI} -f
+RewriteRule ^(.+)$ content/$1 [L]
+RewriteCond %{DOCUMENT_ROOT}/static/%{REQUEST_URI} -f
+RewriteRule ^(.+)$ static/$1 [L]
