@@ -1,4 +1,7 @@
 <?php
+    $config_path = "../content".$_SERVER['REQUEST_URI']."article.json";
+    $_SESSION["config"] = json_decode(file_get_contents($config_path));
+
     // include and declare functions that will be available in template.php
     include("components/head.php");
     include("components/toc.php");
@@ -9,17 +12,14 @@
 
         $article_path = $url."index.html";
         $article_path_relative = "../content/".$article_path;
-        
-        $config_path_relative = "../content".$url."article.json";
-        $config = json_decode(file_get_contents($config_path_relative));
 
         print("<div class=\"article\">");
         print("<h2>");
-        print($config->title);
+        print($_SESSION["config"]->title);
         print("</h2>");
         if(is_file($article_path_relative))
         {
-            $timestamp = $config->timestamp;
+            $timestamp = $_SESSION["config"]->timestamp;
             if(!isset($timestamp))
             {
                 $timestamp = filectime($article_path_relative);

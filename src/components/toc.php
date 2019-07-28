@@ -3,7 +3,7 @@
     {
         // table of contents of a category
     
-        // url is /category/article/
+        // url is /category/article/ or /category/, so go for the first element of the path
         $category_name = explode('/', $_SERVER['REQUEST_URI'])[1];
         $category_relative = "../content/".$category_name."/"; // the actual path to the category, relative to this php file
         $category_config = json_decode(file_get_contents($category_relative."category.json"));

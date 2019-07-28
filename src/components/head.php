@@ -1,8 +1,15 @@
 <?php
 	function render_title()
 	{
-		$url = $_SERVER["REQUEST_URI"];
+        if($_SESSION["config"] != NULL)
+        {
+			print($_SESSION["config"]->title);
+			return;
+		}
+		
 		// title for the <title> tag of the website
+		$url = $_SERVER['REQUEST_URI'];
+		$file = "../content".$url."index.html";
 		$title = "Home";
 		if($url != "/")
 		{
